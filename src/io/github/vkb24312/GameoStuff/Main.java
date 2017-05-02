@@ -2,7 +2,9 @@ package io.github.vkb24312.GameoStuff;
 
 import org.json.simple.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class Main {
@@ -17,6 +19,13 @@ public class Main {
     }
 
     public static void login(JSONObject json){
-        File userJSON = new File(json.get("userDIR").toString());
+        File userJSON = new File(json.get("userDIR").toString()+"/userinfo.json");
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(userJSON));
+        } catch (FileNotFoundException e){
+            System.out.println("Some bug occured where the system thought you had a profile but you dont");
+            System.out.println("If youre a nerd, here's the full stacktrace:");
+            e.printStackTrace();
+        }
     }
 }
