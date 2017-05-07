@@ -61,7 +61,7 @@ public class StartUp{
 
             File userDIR;
             if(System.getProperty("os.name").startsWith("Windows")){
-                userDIR = new File(System.getenv("APPDATA")+"\\Ultrabanana\\Profiles\\"+username.getText()+"\\"+password.getText()+"/");
+                userDIR = new File(System.getenv("APPDATA")+"/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText());
             } else if(System.getProperty("os.name").startsWith("Mac")){
                 userDIR = new File("~/Library/Application Support/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
             } else if(System.getProperty("os.name").startsWith("Linux")){
@@ -73,7 +73,7 @@ public class StartUp{
                 while(true){}
             }
             boolean newUser;
-            newUser = userDIR.mkdirs() ? true : false;
+            newUser = userDIR.mkdirs();
             JSONObject json = new JSONObject();
             json.put("username", username.getText());
             json.put("password", password.getText());
@@ -174,7 +174,7 @@ public class StartUp{
                 JSONObject inventory = new JSONObject();
                 inventory.put(1, "OldSword");
                 json.put("Inventory", inventory);
-                json.put("userJSON", json.get("userDIR").toString()+"/userJSON.json");
+                json.put("userJSON", System.getProperty("os.name").startsWith("Windows") ? json.get("userDIR").toString()+"\\userJSON.json":json.get("userDIR").toString()+"/userJSON.json");
 
                 System.out.println(json);
 
