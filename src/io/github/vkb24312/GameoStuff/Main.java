@@ -1,11 +1,13 @@
 package io.github.vkb24312.GameoStuff;
 
-import com.google.gson.Gson;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -15,9 +17,7 @@ public class Main {
         StartUp.login();
     }
 
-    public static void game(JSONObject json){
-
-    }
+    public static void game(JSONObject json){}
 
     public static void login(Object userJSONobj){
         JSONParser parser = new JSONParser();
@@ -47,6 +47,8 @@ public class Main {
         }
         JSONObject json = jsonObject;
         System.out.println(json);
-        System.out.print("well that took forever to make...");
+        System.out.println("well that took forever to make...");
+        System.out.println("Now lets go onto the game");
+        game(json);
     }
 }

@@ -1,7 +1,7 @@
 package io.github.vkb24312.GameoStuff;
 
-import io.github.vkb24312.GameoStuff.Items.Swords.OldSword;
 import org.json.simple.JSONObject;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.util.Random;
 
 public class StartUp{
@@ -173,7 +172,7 @@ public class StartUp{
                 json.put("Money", new Float(100.00));
                 json.put("InventorySpace", new Integer(64));
                 JSONObject inventory = new JSONObject();
-                inventory.put("Sword", "OldSword");
+                inventory.put(1, "OldSword");
                 json.put("Inventory", inventory);
                 json.put("userJSON", json.get("userDIR").toString()+"/userJSON.json");
 
