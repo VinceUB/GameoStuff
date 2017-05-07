@@ -1,5 +1,5 @@
 # GameoStuff
-This is literally just a random game, and I have no idea where I'm going with this
+This is literally just a random game, and I have no idea where I'm going with this.
 Feel free to fork it if you:
 1. Have an idea
 2. Find my messy coding annoying
