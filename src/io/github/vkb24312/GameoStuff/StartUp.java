@@ -53,81 +53,75 @@ public class StartUp{
         panel.add(button);
         frame.setSize(550, 125);
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                username.setVisible(false);
-                password.setVisible(false);
-                warning.setText("Please wait...");
-                button.setVisible(false);
-                frame.setSize(100, 75);
+        button.addActionListener(e -> {
+            username.setVisible(false);
+            password.setVisible(false);
+            warning.setText("Please wait...");
+            button.setVisible(false);
+            frame.setSize(100, 75);
 
-                File userDIR;
-                if(System.getProperty("os.name").startsWith("Windows")){
-                    userDIR = new File(System.getenv("APPDATA")+"\\Ultrabanana\\Profiles\\"+username.getText()+"\\"+password.getText()+"/");
-                } else if(System.getProperty("os.name").startsWith("Mac")){
-                    userDIR = new File("~/Library/Application Support/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
-                } else if(System.getProperty("os.name").startsWith("Linux")){
-                    userDIR = new File("~/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
-                } else {
-                    warning.setText(System.getProperty("os.name") + " is not supported yet. Please wait for me to update the program to support your OS.");
-                    frame.setSize(1000, 75);
-                    userDIR = new File("");
-                    while(true){}
-                }
-                boolean newUser;
-                if(userDIR.mkdirs()){
-                    newUser = true;
-                } else {
-                    newUser = false;
-                }
-                JSONObject json = new JSONObject();
-                json.put("username", username.getText());
-                json.put("password", password.getText());
-                json.put("userDIR", userDIR);
-                JButton ok = new JButton("Continue");
-                JButton cancel = new JButton("Back");
-                panel.add(cancel);
-                panel.add(ok);
-                if(newUser) {
-                    warning.setText("This user doesnt exist");
-                    ok.setVisible(true);
-                    cancel.setVisible(true);
-                } else {
-                    warning.setText("This user exists");
-                    ok.setVisible(true);
-                    cancel.setVisible(true);
-                }
-                frame.setSize(175, 110);
-
-                ok.addActionListener(new ActionListener(){
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(newUser) {
-                            signup(json);
-                            frame.dispose();
-                        } else {
-
-                            Main.login(json, json.get("userJSON"));
-                        }
-                    }
-                });
-
-                cancel.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        frame.dispose();
-                        StartUp.login();
-                        if(newUser){
-                            File foo = new File(userDIR.getParent());
-                            userDIR.delete();
-                            if(foo.list().length>0){}else{
-                                foo.delete();
-                            }
-                        }
-                    }
-                });
+            File userDIR;
+            if(System.getProperty("os.name").startsWith("Windows")){
+                userDIR = new File(System.getenv("APPDATA")+"\\Ultrabanana\\Profiles\\"+username.getText()+"\\"+password.getText()+"/");
+            } else if(System.getProperty("os.name").startsWith("Mac")){
+                userDIR = new File("~/Library/Application Support/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
+            } else if(System.getProperty("os.name").startsWith("Linux")){
+                userDIR = new File("~/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
+            } else {
+                warning.setText(System.getProperty("os.name") + " is not supported yet. Please wait for me to update the program to support your OS.");
+                frame.setSize(1000, 75);
+                userDIR = new File("");
+                while(true){}
             }
+            boolean newUser;
+            newUser = userDIR.mkdirs() ? true : false;
+            JSONObject json = new JSONObject();
+            json.put("username", username.getText());
+            json.put("password", password.getText());
+            json.put("userDIR", userDIR.toString());
+            json.put("userJSON", userDIR.toString()+"/userJSON.json");
+            JButton ok = new JButton("Continue");
+            JButton cancel = new JButton("Back");
+            panel.add(cancel);
+            panel.add(ok);
+            if(newUser) {
+                warning.setText("This user doesnt exist");
+                ok.setVisible(true);
+                cancel.setVisible(true);
+            } else {
+                warning.setText("This user exists");
+                ok.setVisible(true);
+                cancel.setVisible(true);
+            }
+            frame.setSize(175, 110);
+
+            ok.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(newUser) {
+                        signup(json);
+                        frame.dispose();
+                    } else {
+
+                        Main.login(json.get("userJSON"));
+                    }
+                }
+            });
+
+            cancel.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.dispose();
+                    StartUp.login();
+                    if(newUser){
+                        File foo = new File(userDIR.getParent());
+                        userDIR.delete();
+                        if(foo.list().length>0){}else{
+                            foo.delete();
+                        }
+                    }
+                }
+            });
         });
     }
 
@@ -178,10 +172,10 @@ public class StartUp{
                 json.put("Gender", Gender.getSelectedItem());
                 json.put("Money", new Float(100.00));
                 json.put("InventorySpace", new Integer(64));
-                Object[] Inventory = new Object[Integer.parseInt(json.get("InventorySpace").toString())];
-                Inventory[1] = new OldSword();
-                json.put("Inventory", Inventory);
-                json.put("userJSON", new File(json.get("userDIR").toString()+"/userJSON.json"));
+                JSONObject inventory = new JSONObject();
+                inventory.put("Sword", "OldSword");
+                json.put("Inventory", inventory);
+                json.put("userJSON", json.get("userDIR").toString()+"/userJSON.json");
 
                 System.out.println(json);
 
@@ -194,7 +188,7 @@ public class StartUp{
                 }
 
                 Main main = new Main();
-                main.login(json, json.get("userJSON"));
+                main.game(json);
             }
         });
     }

@@ -1,44 +1,52 @@
 package io.github.vkb24312.GameoStuff;
 
 import com.google.gson.Gson;
-import jdk.nashorn.internal.parser.JSONParser;
-import org.json.simple.JSONArray;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.*;
-import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         StartUp startUp = new StartUp();
-        startUp.login();
+        StartUp.login();
     }
 
     public static void game(JSONObject json){
 
     }
 
-    public static void login(JSONObject json, Object userJSONobj){
-        File userJSON = (File) userJSONobj;
-        Gson gson = new Gson();
+    public static void login(Object userJSONobj){
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = new JSONObject();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(userJSON));
-            String jsonString = gson.toJson(bufferedReader.readLine());
-            org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-            json = (JSONObject) new org.json.simple.parser.JSONParser().parse(jsonString);
+            Scanner in = new Scanner(new File(userJSONobj.toString()));
+            FileReader fileReader = new FileReader(userJSONobj.toString());
+            char[] a = new char[500000000];
+            fileReader.read(a);
+            String f = "";
+            for(char c : a) {
+                if(c=='\u0000'){
+                    break;
+                }
+                f = f + c;
+                System.out.print(c);
+            }
+            fileReader.close();
+            jsonObject = (JSONObject) parser.parse(f);
         } catch (FileNotFoundException e){
-            System.out.print("\n");
-            System.out.println("Some bug occured where the system thought you had a profile but you dont");
-            System.out.println("If youre a nerd, here's the full stacktrace:");
+            System.out.println("We couldnt find your JSON file. Please try again, using the intended way");
             e.printStackTrace();
-            try {Thread.sleep(100);} catch (InterruptedException e1){e1.printStackTrace();}
-            System.out.print("Please report the error message on https://github.com/vkb24312/GameoStuff/issues/new and I'll fix it as soon as possible");
-        } catch (IOException e){
+        } catch (IOException | ParseException e){
             e.printStackTrace();
-        } catch (ParseException e){
-            e.printStackTrace();
+        } catch (NullPointerException e){
+            System.out.println("oh dear...");
         }
+        JSONObject json = jsonObject;
+        System.out.println(json);
+        System.out.print("well that took forever to make...");
     }
 }
