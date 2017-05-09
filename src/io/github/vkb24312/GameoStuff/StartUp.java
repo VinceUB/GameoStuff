@@ -187,7 +187,7 @@ public class StartUp{
                 }
 
                 Main main = new Main();
-                main.game(json);
+                Game.main(json);
             }
         });
     }

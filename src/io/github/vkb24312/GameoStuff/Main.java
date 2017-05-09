@@ -4,6 +4,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,13 +13,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         StartUp startUp = new StartUp();
         StartUp.login();
     }
-
-    public static void game(JSONObject json){}
 
     public static void login(Object userJSONobj){
         JSONParser parser = new JSONParser();
@@ -49,6 +48,11 @@ public class Main {
         System.out.println(json);
         System.out.println("well that took forever to make...");
         System.out.println("Now lets go onto the game");
-        game(json);
+        Frame[] frames = JFrame.getFrames();
+        for (Frame f: frames) {
+            f.dispose();
+        }
+        Game.main(json);
+        System.out.print("The program has closed in Main.");
     }
 }
