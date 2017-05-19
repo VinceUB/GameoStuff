@@ -1,4 +1,4 @@
-package main.java.io.github.vkb24312.GameoStuff;
+package io.github.vkb24312.GameoStuff;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -39,7 +39,9 @@ public class Main {
         } catch (FileNotFoundException e){
             System.out.println("We couldnt find your JSON file. Please try again, using the intended way");
             e.printStackTrace();
-        } catch (IOException | ParseException e){
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (ParseException e){
             e.printStackTrace();
         } catch (NullPointerException e){
             System.out.println("oh dear...");

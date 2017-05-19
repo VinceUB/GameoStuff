@@ -1,4 +1,4 @@
-package main.java.io.github.vkb24312.GameoStuff;
+package io.github.vkb24312.GameoStuff;
 
 import org.json.simple.JSONObject;
 
@@ -52,75 +52,79 @@ public class StartUp{
         panel.add(button);
         frame.setSize(550, 125);
 
-        button.addActionListener(e -> {
-            username.setVisible(false);
-            password.setVisible(false);
-            warning.setText("Please wait...");
-            button.setVisible(false);
-            frame.setSize(100, 75);
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                username.setVisible(false);
+                password.setVisible(false);
+                warning.setText("Please wait...");
+                button.setVisible(false);
+                frame.setSize(100, 75);
 
-            File userDIR;
-            if(System.getProperty("os.name").startsWith("Windows")){
-                userDIR = new File(System.getenv("APPDATA")+"/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText());
-            } else if(System.getProperty("os.name").startsWith("Mac")){
-                userDIR = new File("~/Library/Application Support/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
-            } else if(System.getProperty("os.name").startsWith("Linux")){
-                userDIR = new File("~/Ultrabanana/Profiles/"+username.getText()+"/"+password.getText()+"/");
-            } else {
-                warning.setText(System.getProperty("os.name") + " is not supported yet. Please wait for me to update the program to support your OS.");
-                frame.setSize(1000, 75);
-                userDIR = new File("");
-                while(true){}
-            }
-            boolean newUser;
-            newUser = userDIR.mkdirs();
-            JSONObject json = new JSONObject();
-            json.put("username", username.getText());
-            json.put("password", password.getText());
-            json.put("userDIR", userDIR.toString());
-            json.put("userJSON", userDIR.toString()+"/userJSON.json");
-            JButton ok = new JButton("Continue");
-            JButton cancel = new JButton("Back");
-            panel.add(cancel);
-            panel.add(ok);
-            if(newUser) {
-                warning.setText("This user doesnt exist");
-                ok.setVisible(true);
-                cancel.setVisible(true);
-            } else {
-                warning.setText("This user exists");
-                ok.setVisible(true);
-                cancel.setVisible(true);
-            }
-            frame.setSize(175, 110);
-
-            ok.addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(newUser) {
-                        signup(json);
-                        frame.dispose();
-                    } else {
-
-                        Main.login(json.get("userJSON"));
+                File userDIR;
+                if (System.getProperty("os.name").startsWith("Windows")) {
+                    userDIR = new File(System.getenv("APPDATA") + "/Ultrabanana/Profiles/" + username.getText() + "/" + password.getText());
+                } else if (System.getProperty("os.name").startsWith("Mac")) {
+                    userDIR = new File("~/Library/Application Support/Ultrabanana/Profiles/" + username.getText() + "/" + password.getText() + "/");
+                } else if (System.getProperty("os.name").startsWith("Linux")) {
+                    userDIR = new File("~/Ultrabanana/Profiles/" + username.getText() + "/" + password.getText() + "/");
+                } else {
+                    warning.setText(System.getProperty("os.name") + " is not supported yet. Please wait for me to update the program to support your OS.");
+                    frame.setSize(1000, 75);
+                    userDIR = new File("");
+                    while (true) {
                     }
                 }
-            });
+                boolean newUser;
+                newUser = userDIR.mkdirs();
+                JSONObject json = new JSONObject();
+                json.put("username", username.getText());
+                json.put("password", password.getText());
+                json.put("userDIR", userDIR.toString());
+                json.put("userJSON", userDIR.toString() + "/userJSON.json");
+                JButton ok = new JButton("Continue");
+                JButton cancel = new JButton("Back");
+                panel.add(cancel);
+                panel.add(ok);
+                if (newUser) {
+                    warning.setText("This user doesnt exist");
+                    ok.setVisible(true);
+                    cancel.setVisible(true);
+                } else {
+                    warning.setText("This user exists");
+                    ok.setVisible(true);
+                    cancel.setVisible(true);
+                }
+                frame.setSize(175, 110);
 
-            cancel.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    frame.dispose();
-                    StartUp.login();
-                    if(newUser){
-                        File foo = new File(userDIR.getParent());
-                        userDIR.delete();
-                        if(foo.list().length>0){}else{
-                            foo.delete();
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (newUser) {
+                            signup(json);
+                            frame.dispose();
+                        } else {
+
+                            Main.login(json.get("userJSON"));
                         }
                     }
-                }
-            });
+                });
+
+                cancel.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame.dispose();
+                        StartUp.login();
+                        if (newUser) {
+                            File foo = new File(userDIR.getParent());
+                            userDIR.delete();
+                            if (foo.list().length > 0) {
+                            } else {
+                                foo.delete();
+                            }
+                        }
+                    }
+                });
+            }
         });
     }
 
