@@ -137,9 +137,9 @@ public class StartUp{
 
         String defaultSurname = DefaultStuff.surnames[random.nextInt(1000)];
         char[] defaultSurnamechar = defaultSurname.toCharArray();
-        defaultSurname = Character.toString(defaultSurnamechar[0]).toUpperCase();
+        defaultSurname = java.lang.Character.toString(defaultSurnamechar[0]).toUpperCase();
         for (int i = 1; i < defaultSurnamechar.length; i++) {
-            defaultSurname = defaultSurname + Character.toString(defaultSurnamechar[i]).toLowerCase();
+            defaultSurname = defaultSurname + java.lang.Character.toString(defaultSurnamechar[i]).toLowerCase();
         }
         JTextField Surname = new JTextField(defaultSurname);
         JLabel Surnamel = new JLabel("Your Surname");
