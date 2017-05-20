@@ -1,4 +1,4 @@
-package io.github.vkb24312.GameoStuff;
+package main.java.io.github.vkb24312.GameoStuff;
 
 import org.json.simple.JSONObject;
 
@@ -136,19 +136,14 @@ public class StartUp{
 
         jFrameCreator.create(frame, values.defaultDimension, 3);
 
-        JTextField Name = new JTextField(json.get("username").toString());
+        JTextField Name = new JTextField(DefaultStuff.firstCapital(json.get("username").toString()));
         JLabel Namel = new JLabel("Your first name");
 
-        String defaultSurname = DefaultStuff.surnames[random.nextInt(1000)];
-        char[] defaultSurnamechar = defaultSurname.toCharArray();
-        defaultSurname = java.lang.Character.toString(defaultSurnamechar[0]).toUpperCase();
-        for (int i = 1; i < defaultSurnamechar.length; i++) {
-            defaultSurname = defaultSurname + java.lang.Character.toString(defaultSurnamechar[i]).toLowerCase();
-        }
+        String defaultSurname = DefaultStuff.firstCapital(DefaultStuff.surnames[random.nextInt(1000)]);
         JTextField Surname = new JTextField(defaultSurname);
         JLabel Surnamel = new JLabel("Your Surname");
 
-        String[] availableGenders = {"Male", "Female", "Other/Unspecified"};
+        String[] availableGenders = {"Male", "Female", "Helicopter", "Other/Unspecified"};
         JComboBox Gender = new JComboBox(availableGenders);
         JLabel Genderl = new JLabel("Your gender");
 
@@ -172,7 +167,7 @@ public class StartUp{
             public void actionPerformed(ActionEvent e) {
                 json.put("Name", Name.getText());
                 json.put("Surname", Surname.getText());
-                json.put("Gender", Gender.getSelectedItem());
+                json.put("Gender", Gender.getSelectedItem().equals("Helicopter") ? "Other" : Gender.getSelectedItem().equals("Other/Unspecified") ? "Other" : Gender.getSelectedItem());
                 json.put("Money", new Float(100.00));
                 json.put("InventorySpace", new Integer(64));
                 JSONObject inventory = new JSONObject();

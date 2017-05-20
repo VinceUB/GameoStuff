@@ -1,8 +1,8 @@
-package io.github.vkb24312.GameoStuff.Characters;
+package main.java.io.github.vkb24312.GameoStuff.Characters;
 
-import io.github.vkb24312.GameoStuff.Character;
+import main.java.io.github.vkb24312.GameoStuff.Character;
 
-public class Chara implements Character{
+public class Chara implements Character {
     static void moveNorth(int x, int y){
         System.out.print("This character cannot move");
     }
