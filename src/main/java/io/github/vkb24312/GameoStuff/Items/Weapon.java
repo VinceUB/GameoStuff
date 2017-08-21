@@ -1,4 +1,4 @@
-package main.java.io.github.vkb24312.GameoStuff.Items;
+package io.github.vkb24312.GameoStuff.Items;
 
 public interface Weapon {
     String description = "A weapon that Vincent was too lazy to properly code";

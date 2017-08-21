@@ -1,4 +1,4 @@
-package main.java.io.github.vkb24312.GameoStuff;
+package io.github.vkb24312.GameoStuff;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

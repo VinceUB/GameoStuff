@@ -1,6 +1,6 @@
-package main.java.io.github.vkb24312.GameoStuff.Characters;
+package io.github.vkb24312.GameoStuff.Characters;
 
-import main.java.io.github.vkb24312.GameoStuff.Character;
+import io.github.vkb24312.GameoStuff.Character;
 
 public class Chara implements Character {
     static void moveNorth(int x, int y){

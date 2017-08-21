@@ -1,6 +1,6 @@
-package main.java.io.github.vkb24312.GameoStuff;
+package io.github.vkb24312.GameoStuff;
 
-import main.java.io.github.vkb24312.GameoStuff.Items.Weapon;
+import io.github.vkb24312.GameoStuff.Items.Weapon;
 import org.json.simple.JSONObject;
 
 import javax.swing.*;
