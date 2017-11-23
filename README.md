@@ -19,13 +19,13 @@ Feel free to fork it if you:
 
 ![alt text](https://raw.githubusercontent.com/vkb24312/GameoStuff/master/Screenshots/Login.PNG "The login")
 
-  * If the user exists
+* If the user exists
 
-  ! [alt text](https://raw.githubusercontent.com/vkb24312/GameoStuff/master/Screenshots/LoginCheck.PNG "If the user exists")
+! [alt text](https://raw.githubusercontent.com/vkb24312/GameoStuff/master/Screenshots/LoginCheck.PNG "If the user exists")
+  
+* If the user doesnt exist
 
-  * If the user doesnt exist
-
-  ! [alt text](https://raw.githubusercontent.com/vkb24312/GameoStuff/master/Screenshots/LoginCheck2.PNG "If the user doesnt exist")
+! [alt text](https://raw.githubusercontent.com/vkb24312/GameoStuff/master/Screenshots/LoginCheck2.PNG "If the user doesnt exist")
 
 * The Signup
 
